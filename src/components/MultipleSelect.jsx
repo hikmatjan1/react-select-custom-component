@@ -3,9 +3,8 @@ import Header from './Header';
 import search_icon from '../assets/search1.svg';
 import right_icon from '../assets/chevron_right.svg';
 
-// million-ignore
 function MultipleSelect(props) {
-    let { index = null, data_index = null, mandatory = false, title = {}, placeholder = {}, listItemStyle = {}, lang = "en", style = {}, className = "react-multiple-select" } = props;
+    let { index = null, data_index = null, mandatory = false, title = { name: "", size: "11px", color: "#475467" }, placeholder = { name: "Placeholder", size: "11px", color: "gray" }, listItemStyle = { color: "black", size: "11px", maxHeight: "180px" }, isSearch = "true", lang = "en", style = { maxWidth: "200px", height: "30px", borderRadius: "5px", color: "#0073FB", borderColor: "#152DFF" }, className = "react-multiple-select" } = props;
     const [extraData, setExtraData] = useState(props.data);
     const [selected, setSelected] = useState([]);
     const [open, setOpen] = useState(false);
@@ -47,7 +46,6 @@ function MultipleSelect(props) {
     const changeSelectHandler = useCallback((e) => {
         let a = selected.find(t => t.id === e.id);
 
-
         if (props.changeSelectedHandler)
             props.changeSelectedHandler(a && a.hasOwnProperty("id") ? [...selected.filter(p => p.id != e.id)] : [...selected, e], index, data_index);
 
@@ -81,7 +79,7 @@ function MultipleSelect(props) {
                 >
                     {selected?.length > 0 ? (
                         <ul className='flex items-center gap-1 h-full w-[73%] line-clamp-1'>
-                            {selected.map((item, index, array) => (
+                            {selected.map((item, index) => (
                                 <li key={item.id} className='font-inter_medium'
                                     style={{
                                         height: style?.color ? style?.color : "rgb(51, 51, 51)",
@@ -116,7 +114,7 @@ function MultipleSelect(props) {
                             maxHeight: listItemStyle?.maxHeight ? listItemStyle?.maxHeight : "300px"
                         }}
                     >
-                        {props.isSearch && (
+                        {isSearch && (
                             <div className='flex items-center justify-center px-[6px] pt-[2px] bg-white z-10 dark:bg-dark mb-[4px] w-full multiple-select-search'>
                                 <div className='relative w-full'>
                                     <input name='search' type="search" className='border border-[#cfd3d586] h-[26px] w-full dark:border-gray-900 text-[11px] rounded placeholder-gray-500 dark:bg-dark focus:z-10 focus:outline-none pl-[26px] text-[#626262] placeholder:text-[11px]' placeholder={lang == "ru" ? "Поиск" : lang == "en" ? "Search" : lang == "uz" ? "Qidirish" : "Search"}
@@ -130,7 +128,7 @@ function MultipleSelect(props) {
                         )}
 
                         <div className='multiple-select-list-items'>
-                            {extraData?.length > 0 && extraData.map(elem => (
+                            {extraData?.length > 0 ? extraData.map(elem => (
                                 <label
                                     key={elem.id}
                                     title={elem?.name}
@@ -151,7 +149,11 @@ function MultipleSelect(props) {
                                         {elem?.name}
                                     </p>
                                 </label>
-                            ))}
+                            )) : (
+                                <div>
+                                    <p className='text-gray-500 text-center'>{lang == "ru" ? "Информация не найдена" : lang == "en" ? "Information not available" : lang == "uz" ? "Ma'lumot topilmadi" : "Information not available"}</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 )}
