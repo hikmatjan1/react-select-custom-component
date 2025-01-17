@@ -1,8 +1,9 @@
 import MultipleSelect from './components/MultipleSelect';
+// import { MultipleSelect } from 'react-select-custom-component';
 
 import './App.css';
 
-const allCode = [
+const fruits = [
   { id: 1, name: "Apple" },
   { id: 2, name: "Lemon" },
   { id: 3, name: "Watermelon" },
@@ -24,8 +25,42 @@ function App(props) {
 
   return (
     <div className='p-4'>
+
       <MultipleSelect
-        // data={allCode || []}
+        data={fruits}
+        defaultValue={[]}
+        title={{
+          name: 'Fruits',
+          size: '11px',
+          color: "#475467"
+        }}
+        placeholder={{
+          name: 'Fruits',
+          size: '11px',
+          color: "gray"
+        }}
+        listItemStyle={{
+          color: "black",
+          size: "11px",
+          maxHeight: 150,
+          checkboxColor: "#0000ff"
+        }}
+        isSearch={true}
+        lang="en"
+        mandatory={false}
+        style={{ maxWidth: "200px", height: "30px", borderRadius: "5px", color: "#0073FB", borderColor: "#152DFF" }}
+        className="react-multiple-select"
+        changeSelectedHandler={changeSelectedHandler}
+      />
+
+
+      {/* <MultipleSelect
+        // data={fruits || []}
+        // defaultValue={[
+        //   { id: 1, name: "Apple" },
+        //   { id: 2, name: "Lemon" },
+        //   { id: 3, name: "Watermelon" }
+        // ]}
         // title={{
         //   name: 'Fruits',
         //   size: '11px',
@@ -39,14 +74,16 @@ function App(props) {
         // listItemStyle={{
         //   color: "black",
         //   size: "11px",
-        //   maxHeight: "180px"
+        //   maxHeight: 150,
+        //   checkboxColor: "#0000ff"
         // }}
         // isSearch={true}
         // lang="en"
         // mandatory={false}
         // style={{ maxWidth: "200px", height: "30px", borderRadius: "5px", color: "#0073FB", borderColor: "#152DFF" }}
 
-        data={props.data || []}
+        data={fruits || []}
+        defaultValue={props.defaultValue}
         title={props.title}
         placeholder={props.placeholder}
         listItemStyle={props.listItemStyle}
@@ -54,7 +91,7 @@ function App(props) {
         lang={props.lang}
         className="react-multiple-select"
         changeSelectedHandler={props.changeSelectedHandler}
-      />
+      /> */}
     </div>
   )
 }

@@ -1,11 +1,14 @@
 {
   "name": "react-select-custom-component",
-  "version": "1.0.3",
+  "version": "1.0.19",
   "private": false,
   "description": "A package with the ability to select one or more data, simple and convenient",
   "main": "dist/my-react-tailwind-package.umd.js",
   "module": "dist/my-react-tailwind-package.es.js",
-  "files": ["dist"],
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -24,7 +27,7 @@
     "multi-select-react"
   ],
   "author": "Khikmat Turaev",
-  "homepage": "https://github.com/hikmatjan1/react-select-custom-component", 
+  "homepage": "https://github.com/hikmatjan1/react-select-custom-component",
   "repository": {
     "type": "git",
     "url": "https://github.com/hikmatjan1/react-select-custom-component"
@@ -37,7 +40,9 @@
   },
   "dependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-select-custom-component": "^1.0.18",
+    "react-window": "^1.8.11"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",

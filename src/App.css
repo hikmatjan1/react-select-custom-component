@@ -10,3 +10,9 @@
 .multiple-select-list::-webkit-scrollbar-thumb {
   background-color: rgb(214, 214, 214);
 }
+.multiple-select-list-items > div::-webkit-scrollbar {
+  width: 4px;
+}
+.multiple-select-list-items > div::-webkit-scrollbar-thumb {
+  background-color: rgb(214, 214, 214);
+}

@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "target": "esnext",           // Modern JavaScript (esnext)
+        "module": "esnext",           // ES6 modullari
+        "lib": [
+            "dom",
+            "esnext"
+        ],
+        "strict": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "declaration": true,        // Deklaratsiya faylini yaratish
+        "declarationDir": "./dist", // Yaratilgan deklaratsiya faylini qaysi papkaga joylashtirish
+        "outDir": "./dist",         // Barcha natija fayllarini qaysi papkaga chiqarish
+        "moduleResolution": "node", 
+        "esModuleInterop": true,
+        "emitDeclarationOnly": true,
+        "jsx": "react",
+    },
+    "include": [
+        "src/**/*",
+        // "src/react-select-custom-component.d.ts" // agar deklaratsiya faylini o'z joyingizga qo'ygan bo'lsangiz
+    ],
+    // "exclude": ["node_modules"] // node_modules ni chiqarib tashlash
+}
