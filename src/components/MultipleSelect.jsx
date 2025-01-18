@@ -7,10 +7,12 @@ import Info from './Info';
 import Lists from './Lists';
 
 function MultipleSelect(props) {
-    let { index = null, data_index = null, mandatory = false, title = { name: "", size: "11px", color: "#475467" }, placeholder = { name: "Placeholder", size: "11px", color: "gray" }, listItemStyle = { color: "black", size: "11px", maxHeight: 150, checkboxColor: "blue" }, isSearch = "true", lang = "en", style = { maxWidth: "200px", height: "30px", borderRadius: "5px", color: "#0073FB", borderColor: "#152DFF" }, className = "react-multiple-select", defaultValue = [] } = props;
-    const [extraData, setExtraData] = useState(props.data);
+    let { index = null, data_index = null, data = [], mandatory = false, title = { name: "", size: "11px", color: "#475467" }, placeholder = { name: "Placeholder", size: "11px", color: "gray" }, listItemStyle = { color: "black", size: "11px", maxHeight: 150, checkboxColor: "blue" }, isSearch = "true", lang = "en", style = { maxWidth: "200px", height: "30px", borderRadius: "5px", color: "#0073FB", borderColor: "#152DFF" }, className = "react-multiple-select", defaultValue = [] } = props;
+    const [extraData, setExtraData] = useState(data);
     const [selected, setSelected] = useState(defaultValue);
+    const [selectedAll, setSelectedAll] = useState(null); // hammasini tanlasa alohida shunga olamiz.
     const [open, setOpen] = useState(false);
+    const buttonRef = useRef();
     const modalRef = useRef();
 
     const handleClickOutside = (event) => {
@@ -28,8 +30,8 @@ function MultipleSelect(props) {
     }, []);
 
     useEffect(() => {
-        setExtraData(props.data);
-    }, [props.data]);
+        setExtraData(data?.length > 0 ? [{ id: "all", name: lang == "en" ? "Select all" : lang == "ru" ? "Выбрать все" : lang == "uz" ? "Hammasini tanlash" : "Select all" }, ...data] : data);
+    }, [data]);
 
     // open menu
     const openMenuHandler = useCallback((value) => {
@@ -39,24 +41,39 @@ function MultipleSelect(props) {
     // for search 
     const searchChangeHandler = useCallback((value) => {
         if (value.trim()?.length > 0) {
-            setExtraData(props.data?.filter(item => item.name.toLowerCase().indexOf(value.toLowerCase()) > -1));
+            setExtraData([{ id: "all", name: lang == "en" ? "Select all" : lang == "ru" ? "Выбрать все" : lang == "uz" ? "Hammasini tanlash" : "Select all" }, ...data?.filter(item => item.name.toLowerCase().indexOf(value.toLowerCase()) > -1)]);
         } else {
-            setExtraData(props.data);
+            setExtraData(data?.length > 0 ? [{ id: "all", name: lang == "en" ? "Select all" : lang == "ru" ? "Выбрать все" : lang == "uz" ? "Hammasini tanlash" : "Select all" }, ...data] : data);
         }
     }, [extraData]);
 
     // change select
     const changeSelectHandler = useCallback((e) => {
-        let a = selected.find(t => t.id === e.id);
+        if (e.id == "all") {
+            if (selectedAll) {
+                props.changeSelectedHandler([], index, data_index);
+                setSelected([]);
+                setSelectedAll(null);
+            } else {
+                let result = extraData.filter(e => e.id != "all");
+                props.changeSelectedHandler(result, index, data_index);
+                setSelected(result);
+                setSelectedAll(e);
+            }
+        } else {
+            let a = selected.find(t => t.id === e.id);
 
-        if (props.changeSelectedHandler)
-            props.changeSelectedHandler(a && a.hasOwnProperty("id") ? [...selected.filter(p => p.id != e.id)] : [...selected, e], index, data_index);
+            if (props.changeSelectedHandler)
+                props.changeSelectedHandler(a && a.hasOwnProperty("id") ? [...selected.filter(p => p.id != e.id)] : [...selected, e], index, data_index);
 
-        if (a && a.hasOwnProperty("id")) {
-            setSelected(prev => {
-                return prev.filter(p => p.id != e.id);
-            });
-        } else setSelected([...selected, e])
+            if (a && a.hasOwnProperty("id")) {
+                setSelected(prev => {
+                    return prev.filter(p => p.id != e.id);
+                });
+            } else setSelected([...selected, e]);
+
+            if (selectedAll) setSelectedAll(null);
+        }
     }, [extraData, selected]);
 
     return (
@@ -71,6 +88,7 @@ function MultipleSelect(props) {
                 <div
                     className={`relative appearance-none border px-1 focus:z-10 disabled:bg-[#fff] disabled:border-[#0075FF0D] bg-white overflow-hidden gap-1`}
                     onClick={() => openMenuHandler(!open)}
+                    ref={buttonRef}
                     title={selected?.length > 0 ? selected.map((e, k) => ' ' + e.name) : ''}
                     style={{
                         height: style?.height ? style?.height : "30px",
@@ -90,7 +108,7 @@ function MultipleSelect(props) {
                 {open && (
                     <div
                         className='absolute top-full left-0 right-0 mt-1 rounded-[4px] bg-white shadow-md z-20 multiple-select-list pl-1 pb-0.5'
-                        // style={{ maxHeight: listItemStyle?.maxHeight ? listItemStyle?.maxHeight : "200" }}
+                    // style={{ maxHeight: listItemStyle?.maxHeight ? listItemStyle?.maxHeight : "200" }}
                     >
                         <SearchInput
                             isSearch={isSearch}
@@ -102,6 +120,7 @@ function MultipleSelect(props) {
                             <Lists
                                 extraData={extraData}
                                 selected={selected}
+                                selectedAll={selectedAll}
                                 listItemStyle={listItemStyle}
                                 lang={lang}
                                 changeSelectHandler={changeSelectHandler}

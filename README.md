@@ -92,12 +92,7 @@ Click here to view. [here](https://react-select-custom-component.netlify.app/)
 # Features
 
 1. There is a single or multiple choice option.
-2. Virtualization is designed to improve efficiency when working with large amounts of data. Virtualization ensures that only visible elements within a large array are loaded and processed.
-
-Advantages of Virtualization:
-Fast performance: Resources are used efficiently because only visible elements are loaded.
-Unlimited data: Provides optimization when working with very large arrays.
-
+2. Virtualization is designed to improve efficiency when working with large amounts of data. Virtualization ensures that only visible elements within a large array are loaded and processed. Advantages of Virtualization: Fast performance: Resources are used efficiently because only visible elements are loaded. Unlimited data: Provides optimization when working with very large arrays.
 3. You can freely change the styles inside and outside the list.
 4. There is a search section within the list.
 5. Simple, easy to use, and most importantly, fast, it can be used easily even with large amounts of data.

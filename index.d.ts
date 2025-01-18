@@ -21,42 +21,42 @@ declare module 'react-select-custom-component' {
 
     // export default MultipleSelect;
 
-    export interface Content {
-        selected: any[];
-        style: object;
-    }
-    export const Content: FC<Content>;
+    // export interface Content {
+    //     selected: any[];
+    //     style: object;
+    // }
+    // export const Content: FC<Content>;
 
-    export interface Header {
-        title: object;
-        mandatory: boolean;
-        size: string;
-        color: string;
-    }
-    export const Header: FC<Header>;
+    // export interface Header {
+    //     title: object;
+    //     mandatory: boolean;
+    //     size: string;
+    //     color: string;
+    // }
+    // export const Header: FC<Header>;
 
-    export interface Info {
-        selected: any[];
-        open: boolean;
-    }
-    export const Info: FC<Info>;
+    // export interface Info {
+    //     selected: any[];
+    //     open: boolean;
+    // }
+    // export const Info: FC<Info>;
 
-    export interface Lists {
-        extraData: any[];
-        selected: any[];
-        listItemStyle: object;
-        lang: string;
-    }
-    export const Lists: FC<Lists>;
+    // export interface Lists {
+    //     extraData: any[];
+    //     selected: any[];
+    //     listItemStyle: object;
+    //     lang: string;
+    // }
+    // export const Lists: FC<Lists>;
 
-    export interface Placeholder {
-        placeholder: object;
-    }
-    export const Placeholder: FC<Placeholder>;
+    // export interface Placeholder {
+    //     placeholder: object;
+    // }
+    // export const Placeholder: FC<Placeholder>;
 
-    export interface SearchInput {
-        isSearch: boolean;
-        lang: string;
-    }
-    export const SearchInput: FC<SearchInput>;
+    // export interface SearchInput {
+    //     isSearch: boolean;
+    //     lang: string;
+    // }
+    // export const SearchInput: FC<SearchInput>;
 }

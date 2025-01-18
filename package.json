@@ -1,6 +1,6 @@
 {
   "name": "react-select-custom-component",
-  "version": "1.0.19",
+  "version": "1.0.21",
   "private": false,
   "description": "A package with the ability to select one or more data, simple and convenient",
   "main": "dist/my-react-tailwind-package.umd.js",
@@ -41,7 +41,7 @@
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-select-custom-component": "^1.0.18",
+    "react-select-custom-component": "^1.0.21",
     "react-window": "^1.8.11"
   },
   "devDependencies": {
