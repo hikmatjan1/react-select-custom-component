@@ -12,6 +12,8 @@ A package with the ability to select one or more data, simple and convenient
 ``` javascript
 import { MultipleSelect } from 'react-select-custom-component';
 
+import "react-select-custom-component/dist/tailwind.css"; // import CSS file (important)
+
 // data
 const fruits = [
   { id: 1, name: "Apple" },
@@ -96,3 +98,8 @@ Click here to view. [here](https://react-select-custom-component.netlify.app/)
 3. You can freely change the styles inside and outside the list.
 4. There is a search section within the list.
 5. Simple, easy to use, and most importantly, fast, it can be used easily even with large amounts of data.
+
+
+# Updates
+
+1. A full update has been implemented starting with version 1.0.28. I apologize to everyone for the inconvenience caused by the missing CSS file.

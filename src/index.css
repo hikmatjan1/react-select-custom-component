@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.multiple-select-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.multiple-select-list::-webkit-scrollbar-thumb {
+  background-color: rgb(214, 214, 214);
+}
+
+.multiple-select-list-items>div::-webkit-scrollbar {
+  width: 4px;
+}
+
+.multiple-select-list-items>div::-webkit-scrollbar-thumb {
+  background-color: rgb(214, 214, 214);
+}

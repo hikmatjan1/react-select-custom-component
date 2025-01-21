@@ -9,7 +9,7 @@ function Info(props) {
             {selected?.length > 0 && (
                 <span className='text-[8px] text-gray-400'>{selected?.length}+ more</span>
             )}
-            <img src={right_icon} alt="no image" className={` transition-all ${open && 'rotate-180'}`} />
+            <img src={right_icon} alt="no image" className={`transition-all ${open && 'rotate-180'}`} />
         </div>
     )
 }

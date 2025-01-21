@@ -1,0 +1,1 @@
+export * from '../src'; // Kutubxonangiz asosiy komponentlarini eksport qilish
