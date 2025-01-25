@@ -78,8 +78,8 @@ function MultipleSelect(props) {
 
     return (
         <div
-            style={{ maxWidth: style?.maxWidth ? style?.maxWidth : "200px" }}
-            className={className}
+            style={{ maxWidth: style?.maxWidth ? style?.maxWidth : "100%" }}
+            className={`${className}`}
         >
             {title.hasOwnProperty("name") && title.name && (
                 <Header title={title?.name} size={title?.size} color={title?.color} mandatory={mandatory} />

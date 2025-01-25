@@ -1,13 +1,27 @@
 # react-select-custom-component
 
-A package with the ability to select one or more data, simple and convenient
+`react-select-custom-component` is a flexible and customizable React library for building dropdowns and select inputs with custom components, seamless styling, and full accessibility support.
+
+## Features
+
+- 🎨 **Customizable Components**: Fully replaceable components for rendering options and the dropdown.
+- ⚡ **Fast and Lightweight**: Optimized for performance and small bundle size.
+- 📱 **Responsive**: Works perfectly on mobile and desktop.
+- ♿ **Accessible**: Fully keyboard-navigable and ARIA-compliant.
+- 🚀 **TypeScript Support**: Built-in TypeScript definitions for better development experience.
 
 # Installation
+
+Install the package using npm or yarn:
 
 ``` bash
  npm install react-select-custom-component
  yarn install react-select-custom-component
 ```
+
+## Usage
+
+Here is an example of how to use `react-select-custom-component` in your project:
 
 ``` javascript
 import { MultipleSelect } from 'react-select-custom-component';
@@ -91,15 +105,38 @@ Click here to view. [here](https://react-select-custom-component.netlify.app/)
 | className | You can change the position of the text yourself using CSS. | string | react-multiple-select |
 | changeSelectedHandler | You can get the result using this function | function | optional function |
 
-# Features
+## Why Use `react-select-custom-component`?
 
-1. There is a single or multiple choice option.
-2. Virtualization is designed to improve efficiency when working with large amounts of data. Virtualization ensures that only visible elements within a large array are loaded and processed. Advantages of Virtualization: Fast performance: Resources are used efficiently because only visible elements are loaded. Unlimited data: Provides optimization when working with very large arrays.
-3. You can freely change the styles inside and outside the list.
-4. There is a search section within the list.
-5. Simple, easy to use, and most importantly, fast, it can be used easily even with large amounts of data.
+1. **Ease of Use**: Simple API and easy integration.
+2. **Full Control**: Customize every part of the dropdown to suit your application.
+3. **Community Driven**: Built with best practices for React and modern web development.
+4. **Rich Documentation**: Comprehensive examples and guides for every use case.
 
+
+### Keywords
+
+React Select, Custom Dropdown, React Dropdown, Select Component, Customizable Select, React Library, Accessible Dropdown, multiple-select, select, react-select, react-select-multiple, multi-select-react, tailwindcss-select, select-components, react-select-component, select-multiple, react-select-custom-component, react-custom-component, react-select-custom, custom-select, dropdown, dropdown-select-component, 
+
+## Development
+
+To contribute or make changes, clone the repository and install dependencies:
+
+```bash
+git clone hhttps://github.com/hikmatjan1/react-select-custom-component.git
+cd react-select-custom-component
+npm install
+```
+
+Run the development server:
+
+```bash
+npm run dev
+```
 
 # Updates
 
 1. A full update has been implemented starting with version 1.0.28. I apologize to everyone for the inconvenience caused by the missing CSS file.
+
+## License
+
+React Select Custom Component is open-source and available under the MIT License.
