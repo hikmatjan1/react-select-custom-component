@@ -1,6 +1,6 @@
 {
   "name": "react-select-custom-component",
-  "version": "1.0.36",
+  "version": "1.1.37",
   "private": false,
   "description": "A highly customizable React dropdown component based on React Select, providing flexible and lightweight select input options.",
   "main": "dist/my-react-tailwind-package.umd.js",

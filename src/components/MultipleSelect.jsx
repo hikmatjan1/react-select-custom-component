@@ -7,10 +7,10 @@ import Info from './Info';
 import Lists from './Lists';
 
 function MultipleSelect(props) {
-    let { index = null, data_index = null, data = [], mandatory = false, title = { name: "", size: "11px", color: "#475467" }, placeholder = { name: "Placeholder", size: "11px", color: "gray" }, listItemStyle = { color: "black", size: "11px", maxHeight: 150, checkboxColor: "blue" }, isSearch = "true", lang = "en", style = { maxWidth: "200px", height: "30px", borderRadius: "5px", color: "#0073FB", borderColor: "#152DFF" }, className = "react-multiple-select", defaultValue = [] } = props;
-    const [extraData, setExtraData] = useState(data);
+    let { index = null, data_index = null, data = [], isMulti = true, mandatory = false, title = { name: "", size: "11px", color: "#475467" }, placeholder = { name: "Placeholder", size: "11px", color: "gray" }, listItemStyle = { color: "black", size: "11px", maxHeight: 150, checkboxColor: "blue" }, isSearch = "true", lang = "en", style = { maxWidth: "200px", height: "30px", borderRadius: "5px", color: "#0073FB", borderColor: "#152DFF" }, className = "react-multiple-select", defaultValue = [] } = props;
+    const [extraData, setExtraData] = useState([]);
     const [selected, setSelected] = useState(defaultValue);
-    const [selectedAll, setSelectedAll] = useState(null); // hammasini tanlasa alohida shunga olamiz.
+    const [selectedAll, setSelectedAll] = useState(null); // If we choose all of them, we can do it separately.
     const [open, setOpen] = useState(false);
     const buttonRef = useRef();
     const modalRef = useRef();
@@ -18,6 +18,9 @@ function MultipleSelect(props) {
     const handleClickOutside = (event) => {
         if (modalRef.current && !modalRef.current.contains(event.target)) {
             setOpen(false); // Tashqariga bosilganda yopiladi
+            if (extraData?.length < data?.length) {
+                setExtraData(data?.length > 0 ? (isMulti ? [{ id: "all", name: lang == "en" ? "Select all" : lang == "ru" ? "Выбрать все" : lang == "uz" ? "Hammasini tanlash" : "Select all" }, ...data] : data) : data);
+            }
         }
     };
 
@@ -29,8 +32,9 @@ function MultipleSelect(props) {
         };
     }, []);
 
+    // save data to extraData state
     useEffect(() => {
-        setExtraData(data?.length > 0 ? [{ id: "all", name: lang == "en" ? "Select all" : lang == "ru" ? "Выбрать все" : lang == "uz" ? "Hammasini tanlash" : "Select all" }, ...data] : data);
+        setExtraData(data?.length > 0 ? (isMulti ? [{ id: "all", name: lang == "en" ? "Select all" : lang == "ru" ? "Выбрать все" : lang == "uz" ? "Hammasini tanlash" : "Select all" }, ...data] : data) : data);
     }, [data]);
 
     // open menu
@@ -39,11 +43,11 @@ function MultipleSelect(props) {
     }, []);
 
     // for search 
-    const searchChangeHandler = useCallback((value) => {
+    const searchChangeHandler = useCallback(value => {
         if (value.trim()?.length > 0) {
-            setExtraData([{ id: "all", name: lang == "en" ? "Select all" : lang == "ru" ? "Выбрать все" : lang == "uz" ? "Hammasini tanlash" : "Select all" }, ...data?.filter(item => item.name.toLowerCase().indexOf(value.toLowerCase()) > -1)]);
+            setExtraData(isMulti ? [{ id: "all", name: lang == "en" ? "Select all" : lang == "ru" ? "Выбрать все" : lang == "uz" ? "Hammasini tanlash" : "Select all" }, ...data?.filter(item => item.name.toLowerCase().indexOf(value.toLowerCase()) > -1)] : data?.filter(item => item.name.toLowerCase().indexOf(value.toLowerCase()) > -1));
         } else {
-            setExtraData(data?.length > 0 ? [{ id: "all", name: lang == "en" ? "Select all" : lang == "ru" ? "Выбрать все" : lang == "uz" ? "Hammasini tanlash" : "Select all" }, ...data] : data);
+            setExtraData(data?.length > 0 ? (isMulti ? [{ id: "all", name: lang == "en" ? "Select all" : lang == "ru" ? "Выбрать все" : lang == "uz" ? "Hammasini tanlash" : "Select all" }, ...data] : data) : data);
         }
     }, [extraData]);
 
@@ -61,18 +65,23 @@ function MultipleSelect(props) {
                 setSelectedAll(e);
             }
         } else {
-            let a = selected.find(t => t.id === e.id);
+            if (isMulti) {
+                let a = selected.find(t => t.id === e.id);
 
-            if (props.changeSelectedHandler)
-                props.changeSelectedHandler(a && a.hasOwnProperty("id") ? [...selected.filter(p => p.id != e.id)] : [...selected, e], index, data_index);
+                if (props.changeSelectedHandler)
+                    props.changeSelectedHandler(a && a.hasOwnProperty("id") ? [...selected.filter(p => p.id != e.id)] : [...selected, e], index, data_index);
 
-            if (a && a.hasOwnProperty("id")) {
-                setSelected(prev => {
-                    return prev.filter(p => p.id != e.id);
-                });
-            } else setSelected([...selected, e]);
+                if (a && a.hasOwnProperty("id")) {
+                    setSelected(prev => {
+                        return prev.filter(p => p.id != e.id);
+                    });
+                } else setSelected([...selected, e]);
 
-            if (selectedAll) setSelectedAll(null);
+                if (selectedAll) setSelectedAll(null);
+            } else {
+                props.changeSelectedHandler(e, index, data_index);
+                setSelected(e);
+            }
         }
     }, [extraData, selected]);
 
@@ -86,18 +95,18 @@ function MultipleSelect(props) {
             )}
             <div className='relative text-[11px]' ref={modalRef}>
                 <div
-                    className={`relative appearance-none border px-1 focus:z-10 disabled:bg-[#fff] disabled:border-[#0075FF0D] bg-white overflow-hidden gap-1`}
+                    className={`relative appearance-none border px-2 focus:z-10 disabled:bg-[#fff] disabled:border-[#0075FF0D] bg-white overflow-hidden gap-1`}
                     onClick={() => openMenuHandler(!open)}
                     ref={buttonRef}
-                    title={selected?.length > 0 ? selected.map((e, k) => ' ' + e.name) : ''}
+                    title={isMulti ? (selected?.length > 0 ? selected.map((e, k) => ' ' + e.name) : '') : selected && !Array.isArray(selected) ? selected?.name : ""}
                     style={{
                         height: style?.height ? style?.height : "30px",
                         borderRadius: style?.borderRadius ? style?.borderRadius : "5px",
-                        borderColor: open ? '#152DFF' : '#CFD3D5'
+                        borderColor: open ? '#152DFF' : style?.borderColor ? style?.borderColor : "#ccc"
                     }}
                 >
-                    {selected?.length > 0 ? (
-                        <Content selected={selected} style={style} />
+                    {((Array.isArray(selected) && selected?.length > 0) || (!Array.isArray(selected) && selected)) ? (
+                        <Content selected={selected} style={style} isMulti={isMulti} />
                     ) : (
                         <Placeholder placeholder={placeholder} />
                     )}
@@ -107,8 +116,8 @@ function MultipleSelect(props) {
 
                 {open && (
                     <div
-                        className='absolute top-full left-0 right-0 mt-1 rounded-[4px] bg-white shadow-md z-20 multiple-select-list pl-1 pb-0.5'
-                    // style={{ maxHeight: listItemStyle?.maxHeight ? listItemStyle?.maxHeight : "200" }}
+                        className='absolute top-full left-0 right-0 mt-1 rounded-[4px] bg-white shadow-md multiple-select-list pl-1 pb-0.5'
+                        style={{ zIndex: listItemStyle?.zIndex ? listItemStyle?.zIndex : 20 }}
                     >
                         <SearchInput
                             isSearch={isSearch}
@@ -123,6 +132,7 @@ function MultipleSelect(props) {
                                 selectedAll={selectedAll}
                                 listItemStyle={listItemStyle}
                                 lang={lang}
+                                isMulti={isMulti}
                                 changeSelectHandler={changeSelectHandler}
                             />
                         </div>

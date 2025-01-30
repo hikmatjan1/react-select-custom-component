@@ -56,6 +56,7 @@ function Example() {
             { id: 1, name: "Apple" },
             { id: 2, name: "Lemon" },
         ]}
+        isMulti={true}
         title={{
           name: 'Fruits',
           size: '11px',
@@ -70,7 +71,8 @@ function Example() {
           color: "black",
           size: "11px",
           maxHeight: 150,
-          checkboxColor: "#0000ff"
+          checkboxColor: "#0000ff",
+          zIndex: 20
         }}
         isSearch={true}
         lang="en"
@@ -94,7 +96,8 @@ Click here to view. [here](https://react-select-custom-component.netlify.app/)
 | Prop | Description                                         | Type | Default |
 |------|-----------------------------------------------------|------|---------|
 | data | In this case, complete information is provided in the form of an array, i.e. | Array, example [{ id: 1, name: "Apple" }, {}, {}] | [] |
-| defaultValue | You need to provide an array as the default value. | array | [{ id: 1, name: "Apple" }, {}, {}] |
+| defaultValue | You need to provide an array as the default value. | array | if isMulti === true [{ id: 1, name: "Apple" }, {}, {}], else { id: 1, name: "Apple" } |
+| isMulti | If true, there are 2 or more choices, otherwise there is only 1 choice | boolean | true |
 | title | For the title above | object | { name: "", size: "11px", color: "gray" } |
 | placeholder | For placeholder | object | { name: "placeholder", size: "11px", color: "gray" } |
 | listItemStyle | Styling lists | object | { color: "black", size: "11px", maxHeight: 150, checkboxColor: "#0000ff" } |
@@ -136,6 +139,7 @@ npm run dev
 # Updates
 
 1. A full update has been implemented starting with version 1.0.28. I apologize to everyone for the inconvenience caused by the missing CSS file.
+2. Starting from version 1.1.36, the option to select only 1 has also been added. Returns an object as the result, otherwise returns an array.
 
 ## License
 
